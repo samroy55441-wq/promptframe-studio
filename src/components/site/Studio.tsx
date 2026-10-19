@@ -65,13 +65,13 @@ export function Studio() {
   const handle = async (file?: File) => {
     if (!file) return;
     const video = file.type.startsWith("video/");
-    if (!video && !file.type.startsWith("image/")) return toast.error("Please upload an image or a video.");
-    if (file.size > 100 * 1024 * 1024) return toast.error("File is too large (max 100MB).");
+    if (!video && !file.type.startsWith("image/")) { toast.error("Please upload an image or a video."); return; }
+    if (file.size > 100 * 1024 * 1024) { toast.error("File is too large (max 100MB)."); return; }
     setRaw("");
     setLoading(true);
     try {
       const images = video ? await videoFrames(file) : [await imageToData(file)];
-      setPreview({ url: URL.createObjectURL(file), video, thumb: images[0] });
+      setPreview({ url: URL.createObjectURL(file), video, thumb: images[0] ?? "" });
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
