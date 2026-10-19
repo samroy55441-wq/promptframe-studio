@@ -93,7 +93,7 @@ function Hero() {
               width={768}
               height={1024}
               initial={{ opacity: 0, y: 80, rotate: 0 }}
-              animate={{ opacity: 1, y: 0, rotate: [-8, 4, -2][i] }}
+              animate={{ opacity: 1, y: 0, rotate: [-8, 4, -2][i] ?? 0 }}
               transition={{ delay: 0.4 + i * 0.15, duration: 1.1, ease }}
               whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
               className="absolute w-60 rounded-3xl border border-border object-cover shadow-2xl"
@@ -218,7 +218,7 @@ function CollectionsSection() {
             <motion.div key={n} initial={{ opacity: 0, y: 60, rotate: 0 }} whileInView={{ opacity: 1, y: 0, rotate: (i - 1) * 6 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.9, ease }}
               className="absolute left-1/2 top-1/2 w-64 -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-border bg-card p-4 shadow-2xl" style={{ marginLeft: (i - 1) * 90, marginTop: (i - 1) * 20 }}>
               <div className="grid grid-cols-2 gap-2">
-                {LIBRARY.slice(0, 4).map((it, j) => <img key={j} src={LIBRARY[(i + j) % 4].image} alt="" loading="lazy" className="aspect-square rounded-xl object-cover" />)}
+                {LIBRARY.slice(0, 4).map((it, j) => <img key={j} src={LIBRARY[(i + j) % 4]?.image} alt="" loading="lazy" className="aspect-square rounded-xl object-cover" />)}
               </div>
               <p className="mt-3 font-display text-2xl italic">{n}</p>
             </motion.div>
@@ -240,7 +240,7 @@ function Features() {
     <section className="relative flex min-h-screen flex-col justify-center overflow-hidden py-28">
       <div className="mb-20 flex whitespace-nowrap font-display text-7xl italic sm:text-9xl">
         <div className="animate-marquee flex gap-12 pr-12">
-          {Array.from({ length: 2 }).flatMap((_, k) => ["Midjourney", "✦", "DALL·E", "✦", "Flux", "✦", "Stable Diffusion", "✦", "Sora", "✦"].map((w, i) => <span key={`${k}${i}`} className={w === "✦" ? "text-primary" : "text-muted-foreground/40"}>{w}</span>))}
+          {Array.from({ length: 2 }).flatMap((_, k) => ["Midjourney", "✦", "DALL·E", "✦", "Flux", "✦", "Stable Diffusion", "✦", "Sora", "✦"].map((w, i) => <span key={`${k}-${i}`} className={w === "✦" ? "text-primary" : "text-muted-foreground/40"}>{w}</span>))}
         </div>
       </div>
       <div className="mx-auto w-full max-w-6xl px-6">
