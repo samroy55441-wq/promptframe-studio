@@ -121,7 +121,7 @@ export function Studio() {
       ? {
           id: `mine-${Date.now()}`,
           title: result.style || "My upload",
-          image: preview.thumb.length > 200000 ? preview.thumb : preview.thumb,
+          image: preview.thumb,
           prompt: result.prompt,
           negative: result.negative,
           style: result.style || "Custom",
