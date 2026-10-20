@@ -27,8 +27,17 @@ export function parsePrompt(text: string) {
   };
 }
 
-export function streamDelta(event: Record<string, any>): string {
-  if (["error", "response.failed", "response.incomplete", "denied"].includes(event.type)) {
+type AnalysisEvent = {
+  type?: string;
+  delta?: string;
+  message?: string;
+  error?: { message?: string };
+  response?: { error?: { message?: string } };
+  choices?: { delta?: { content?: string; refusal?: string }; finish_reason?: string }[];
+};
+
+export function streamDelta(event: AnalysisEvent): string {
+  if (["error", "response.failed", "response.incomplete", "denied"].includes(event.type ?? "")) {
     throw new Error(event.error?.message || event.response?.error?.message || event.message || "Analysis could not finish.");
   }
   if (event.type === "response.refusal.delta" || event.choices?.[0]?.delta?.refusal || event.choices?.[0]?.finish_reason === "content_filter") {

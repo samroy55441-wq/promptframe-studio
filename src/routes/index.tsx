@@ -10,8 +10,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PromptLens — Upload any image, video or ringtone, get the exact AI prompt" },
-      { name: "description", content: "Turn any image, video or ringtone into the exact AI prompt that recreates it. Copy-ready prompt library. No signup." },
+      { title: "PromptLens — Image, video and ringtone recreation prompts" },
+      { name: "description", content: "Turn images, videos and ringtones into detailed recreation prompts. Copy-ready prompt library. No signup." },
       { property: "og:title", content: "PromptLens — Get a detailed prompt for any image" },
       { property: "og:description", content: "No more commenting on Instagram for prompts. Upload, get the prompt, copy it." },
       { property: "og:type", content: "website" },
@@ -67,7 +67,7 @@ function Hero() {
       <motion.div style={{ y, opacity: op }} className="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-8 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground">
-            <span className="size-1.5 animate-pulse rounded-full bg-primary" /> Free · No signup · Images · Video · Audio
+            <span className="size-1.5 animate-pulse rounded-full bg-primary" /> No signup · Images · Video · Audio
           </motion.span>
           <h1 className="font-display text-6xl leading-[0.95] sm:text-8xl">
             <Words text="See it." delay={0.3} />
@@ -247,7 +247,7 @@ function Features() {
 
 /* 08 — FAQ + CTA */
 function FaqCta() {
-  const faq = [
+  const faq: [string, string][] = [
     ["Do I need an account?", "No. Upload a file and copy your prompt without signing up. Analysis is subject to available AI credits."],
     ["Can it recover the original prompt?", "No tool can guarantee the original prompt from a finished image or sound. PromptLens creates a detailed recreation prompt from your upload."],
     ["Which AI tools do the prompts work with?", "Midjourney, DALL·E, Flux, Stable Diffusion, Leonardo and most video generators."],
