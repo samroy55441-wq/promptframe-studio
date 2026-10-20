@@ -20,7 +20,6 @@ export function Nav() {
         <nav className="flex items-center gap-1 text-sm">
           {[
             { to: "/library", label: "Library" },
-            { to: "/collections", label: "Collections" },
           ].map((l) => (
             <Link
               key={l.to}

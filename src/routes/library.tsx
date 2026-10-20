@@ -8,7 +8,7 @@ export const Route = createFileRoute("/library")({
   head: () => ({
     meta: [
       { title: "Prompt Library — Images with exact prompts | PromptLens" },
-      { name: "description", content: "Browse a curated collection of AI images with their exact prompts. Copy or save any of them." },
+      { name: "description", content: "Browse a curated collection of AI images with their exact prompts. Copy any of them." },
       { property: "og:title", content: "Prompt Library | PromptLens" },
       { property: "og:description", content: "Curated AI images with copy-ready prompts." },
       { property: "og:type", content: "website" },

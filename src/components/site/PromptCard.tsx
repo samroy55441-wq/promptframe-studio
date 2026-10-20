@@ -1,16 +1,16 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Check, Copy, Trash2 } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import type { PromptItem } from "@/lib/library";
-import { SaveDialog } from "./SaveDialog";
+import { Button } from "@/components/ui/button";
 
 export function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) {
   const [done, setDone] = useState(false);
   return (
-    <button
+    <Button
       onClick={async () => {
-        await navigator.clipboard.writeText(text);
+        try { await navigator.clipboard.writeText(text); } catch { toast.error("Couldn’t copy — please select and copy the prompt."); return; }
         setDone(true);
         toast.success("Prompt copied");
         setTimeout(() => setDone(false), 1600);
@@ -18,11 +18,11 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
       className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform active:scale-95"
     >
       {done ? <Check className="size-4" /> : <Copy className="size-4" />} {done ? "Copied" : label}
-    </button>
+    </Button>
   );
 }
 
-export function PromptCard({ item, index = 0, onRemove }: { item: PromptItem; index?: number; onRemove?: () => void }) {
+export function PromptCard({ item, index = 0 }: { item: PromptItem; index?: number }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 60, rotate: index % 2 ? 2 : -2 }}
@@ -41,13 +41,7 @@ export function PromptCard({ item, index = 0, onRemove }: { item: PromptItem; in
         <p className="line-clamp-4 font-mono text-xs leading-relaxed text-muted-foreground">{item.prompt}</p>
         <div className="flex flex-wrap items-center gap-2">
           <CopyButton text={item.prompt} />
-          {onRemove ? (
-            <button onClick={onRemove} aria-label="Remove" className="rounded-full border border-border p-2 transition-colors hover:border-destructive hover:text-destructive">
-              <Trash2 className="size-4" />
-            </button>
-          ) : (
-            <SaveDialog item={item} />
-          )}
+
         </div>
       </div>
     </motion.article>

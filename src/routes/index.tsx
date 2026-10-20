@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
-import { ArrowRight, MessageCircleOff, Upload, Wand2, Copy, FolderHeart, Zap, Lock, Infinity as Inf } from "lucide-react";
+import { ArrowRight, MessageCircleOff, Upload, Wand2, Copy, Music2, Zap, Lock, Infinity as Inf } from "lucide-react";
 import { LIBRARY } from "@/lib/library";
 import { PromptCard } from "@/components/site/PromptCard";
 import { Studio } from "@/components/site/Studio";
@@ -10,10 +10,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PromptLens — Upload any image or video, get the exact AI prompt" },
-      { name: "description", content: "Turn any image or video into the exact AI prompt that recreates it. Free prompt library and personal collections. No signup." },
-      { property: "og:title", content: "PromptLens — Get the exact prompt for any image" },
-      { property: "og:description", content: "No more commenting on Instagram for prompts. Upload, get the prompt, save it." },
+      { title: "PromptLens — Upload any image, video or ringtone, get the exact AI prompt" },
+      { name: "description", content: "Turn any image, video or ringtone into the exact AI prompt that recreates it. Copy-ready prompt library. No signup." },
+      { property: "og:title", content: "PromptLens — Get a detailed prompt for any image" },
+      { property: "og:description", content: "No more commenting on Instagram for prompts. Upload, get the prompt, copy it." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -67,7 +67,7 @@ function Hero() {
       <motion.div style={{ y, opacity: op }} className="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-8 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground">
-            <span className="size-1.5 animate-pulse rounded-full bg-primary" /> Free · No signup · Images & video
+            <span className="size-1.5 animate-pulse rounded-full bg-primary" /> Free · No signup · Images · Video · Audio
           </motion.span>
           <h1 className="font-display text-6xl leading-[0.95] sm:text-8xl">
             <Words text="See it." delay={0.3} />
@@ -75,7 +75,7 @@ function Hero() {
             <Words text="Get the prompt." className="italic text-gradient" delay={0.5} />
           </h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 0.8 }} className="mt-8 max-w-md text-lg text-muted-foreground">
-            Upload any image or video and get the exact AI prompt behind it — in seconds.
+            Upload any image, video or ringtone and get the detailed recreation prompt inspired by it — in seconds.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.15, duration: 0.8 }} className="mt-10 flex flex-wrap gap-3">
             <Link to="/studio" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-105">
@@ -138,9 +138,9 @@ function Problem() {
 /* 03 — How it works */
 function HowItWorks() {
   const steps = [
-    { icon: Upload, t: "Upload", d: "Drop any image or short video." },
+    { icon: Upload, t: "Upload", d: "Drop an image, video or ringtone." },
     { icon: Wand2, t: "Analyze", d: "AI reads subject, light, lens, style and mood." },
-    { icon: Copy, t: "Copy", d: "Get the exact prompt — ready for any AI tool." },
+    { icon: Copy, t: "Copy", d: "Get a detailed prompt — ready for any AI tool." },
   ];
   return (
     <Section>
@@ -202,29 +202,15 @@ function HScroll({ x }: { x: MotionValue<string> }) {
   );
 }
 
-/* 06 — Collections */
-function CollectionsSection() {
+/* 06 — Audio */
+function AudioSection() {
   return (
     <Section>
-      <Eyebrow n="06">Your collections</Eyebrow>
-      <div className="grid items-center gap-16 lg:grid-cols-2">
-        <div>
-          <h2 className="font-display text-5xl leading-tight sm:text-7xl"><Words text="Save. Sort." /><br /><Words text="Reuse forever." className="italic" delay={0.2} /></h2>
-          <p className="mt-6 max-w-md text-muted-foreground">Create your own collections — moodboards, client styles, favorites. Saved right in your browser. No account, ever.</p>
-          <Link to="/collections" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Open collections <FolderHeart className="size-4" /></Link>
-        </div>
-        <div className="relative h-[420px]">
-          {["Cinematic", "Product shots", "Cute 3D"].map((n, i) => (
-            <motion.div key={n} initial={{ opacity: 0, y: 60, rotate: 0 }} whileInView={{ opacity: 1, y: 0, rotate: (i - 1) * 6 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.9, ease }}
-              className="absolute left-1/2 top-1/2 w-64 -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-border bg-card p-4 shadow-2xl" style={{ marginLeft: (i - 1) * 90, marginTop: (i - 1) * 20 }}>
-              <div className="grid grid-cols-2 gap-2">
-                {LIBRARY.slice(0, 4).map((it, j) => <img key={j} src={LIBRARY[(i + j) % 4]?.image} alt="" loading="lazy" className="aspect-square rounded-xl object-cover" />)}
-              </div>
-              <p className="mt-3 font-display text-2xl italic">{n}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      <Eyebrow n="06">Sound to prompt</Eyebrow>
+      <Music2 className="mb-8 size-12 text-accent" />
+      <h2 className="font-display text-5xl sm:text-7xl"><Words text="Hear it. Recreate it." /></h2>
+      <p className="mt-6 max-w-xl text-lg text-muted-foreground">Upload a ringtone or music clip for a prompt inspired by its melody, instruments, rhythm and mood.</p>
+      <Link to="/studio" className="mt-8 inline-flex items-center gap-2 text-primary">Upload a ringtone <ArrowRight className="size-4" /></Link>
     </Section>
   );
 }
@@ -234,7 +220,7 @@ function Features() {
   const f = [
     { icon: Zap, t: "Seconds, not days", d: "No waiting for a creator to reply." },
     { icon: Lock, t: "No signup", d: "Open it and use it. That's it." },
-    { icon: Inf, t: "Images & video", d: "We read multiple frames of your clip." },
+    { icon: Inf, t: "Images · Video · Audio", d: "We read multiple frames of your clip." },
   ];
   return (
     <section className="relative flex min-h-screen flex-col justify-center overflow-hidden py-28">
@@ -262,10 +248,10 @@ function Features() {
 /* 08 — FAQ + CTA */
 function FaqCta() {
   const faq = [
-    ["Is it really free with no signup?", "Yes. Upload, get your prompt, save it to collections — all without an account."],
-    ["Where are my collections stored?", "Right in your browser on this device. Clearing browser data removes them."],
+    ["Do I need an account?", "No. Upload a file and copy your prompt without signing up. Analysis is subject to available AI credits."],
+    ["Can it recover the original prompt?", "No tool can guarantee the original prompt from a finished image or sound. PromptLens creates a detailed recreation prompt from your upload."],
     ["Which AI tools do the prompts work with?", "Midjourney, DALL·E, Flux, Stable Diffusion, Leonardo and most video generators."],
-    ["Can I upload videos?", "Yes — we sample several frames and describe the whole scene, motion and style."],
+    ["Can I upload videos?", "Yes — we sample frames to describe the scene and visual style. You can also upload a ringtone for a music prompt."],
   ];
   return (
     <Section>
@@ -296,7 +282,7 @@ function Index() {
       <HowItWorks />
       <StudioSection />
       <LibraryScroll />
-      <CollectionsSection />
+      <AudioSection />
       <Features />
       <FaqCta />
     </main>
