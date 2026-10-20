@@ -115,8 +115,8 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
   ::selection { background: var(--primary); color: var(--primary-foreground); }
 }
 
