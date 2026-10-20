@@ -10,19 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CollectionsRouteImport } from './routes/collections'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as StudioRouteImport } from './routes/studio'
-import { Route as ApiAnalyzeRouteImport } from './routes/api/analyze'
+import { Route as ApiPublicAnalyzeRouteImport } from './routes/api/public/analyze'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CollectionsRoute = CollectionsRouteImport.update({
-  id: '/collections',
-  path: '/collections',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryRoute = LibraryRouteImport.update({
@@ -35,49 +29,44 @@ const StudioRoute = StudioRouteImport.update({
   path: '/studio',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAnalyzeRoute = ApiAnalyzeRouteImport.update({
-  id: '/api/analyze',
-  path: '/api/analyze',
+const ApiPublicAnalyzeRoute = ApiPublicAnalyzeRouteImport.update({
+  id: '/api/public/analyze',
+  path: '/api/public/analyze',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/collections': typeof CollectionsRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
-  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/collections': typeof CollectionsRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
-  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/collections': typeof CollectionsRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
-  '/api/analyze': typeof ApiAnalyzeRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/collections' | '/library' | '/studio' | '/api/analyze'
+  fullPaths: '/' | '/library' | '/studio' | '/api/public/analyze'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/collections' | '/library' | '/studio' | '/api/analyze'
-  id:
-    '__root__' | '/' | '/collections' | '/library' | '/studio' | '/api/analyze'
+  to: '/' | '/library' | '/studio' | '/api/public/analyze'
+  id: '__root__' | '/' | '/library' | '/studio' | '/api/public/analyze'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CollectionsRoute: typeof CollectionsRoute
   LibraryRoute: typeof LibraryRoute
   StudioRoute: typeof StudioRoute
-  ApiAnalyzeRoute: typeof ApiAnalyzeRoute
+  ApiPublicAnalyzeRoute: typeof ApiPublicAnalyzeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -87,13 +76,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/collections': {
-      id: '/collections'
-      path: '/collections'
-      fullPath: '/collections'
-      preLoaderRoute: typeof CollectionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/library': {
@@ -110,11 +92,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/analyze': {
-      id: '/api/analyze'
-      path: '/api/analyze'
-      fullPath: '/api/analyze'
-      preLoaderRoute: typeof ApiAnalyzeRouteImport
+    '/api/public/analyze': {
+      id: '/api/public/analyze'
+      path: '/api/public/analyze'
+      fullPath: '/api/public/analyze'
+      preLoaderRoute: typeof ApiPublicAnalyzeRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -122,10 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CollectionsRoute: CollectionsRoute,
   LibraryRoute: LibraryRoute,
   StudioRoute: StudioRoute,
-  ApiAnalyzeRoute: ApiAnalyzeRoute,
+  ApiPublicAnalyzeRoute: ApiPublicAnalyzeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
