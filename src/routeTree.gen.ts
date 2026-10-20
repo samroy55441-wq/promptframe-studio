@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as StudioRouteImport } from './routes/studio'
+import { Route as ApiPublicAnalyzeRouteImport } from './routes/api/public/analyze'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const StudioRoute = StudioRouteImport.update({
   path: '/studio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAnalyzeRoute = ApiPublicAnalyzeRouteImport.update({
+  id: '/api/public/analyze',
+  path: '/api/public/analyze',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/library': typeof LibraryRoute
   '/studio': typeof StudioRoute
+  '/api/public/analyze': typeof ApiPublicAnalyzeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/library' | '/studio'
+  fullPaths: '/' | '/library' | '/studio' | '/api/public/analyze'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/library' | '/studio'
-  id: '__root__' | '/' | '/library' | '/studio'
+  to: '/' | '/library' | '/studio' | '/api/public/analyze'
+  id: '__root__' | '/' | '/library' | '/studio' | '/api/public/analyze'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LibraryRoute: typeof LibraryRoute
   StudioRoute: typeof StudioRoute
+  ApiPublicAnalyzeRoute: typeof ApiPublicAnalyzeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/analyze': {
+      id: '/api/public/analyze'
+      path: '/api/public/analyze'
+      fullPath: '/api/public/analyze'
+      preLoaderRoute: typeof ApiPublicAnalyzeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LibraryRoute: LibraryRoute,
   StudioRoute: StudioRoute,
+  ApiPublicAnalyzeRoute: ApiPublicAnalyzeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
